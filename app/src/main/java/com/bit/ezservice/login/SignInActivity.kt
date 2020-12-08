@@ -10,8 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bit.ezservice.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.getField
+import com.google.firebase.ktx.Firebase
 
 class SignInActivity : AppCompatActivity(), View.OnClickListener {
+
+    private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_signin_activity)
@@ -36,9 +41,32 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
         if (!valid(email, password)) {
             return
-        } else {
-            Snackbar.make(v, "Welcome ..", Snackbar.LENGTH_SHORT).show()
         }
+
+        checkUser(v, email, password)
+
+    }
+
+    private fun checkUser(v: View, email: TextView, password: TextView) {
+
+        db.collection("Account")
+            .get()
+            .addOnSuccessListener {
+                for (result in it) {
+                    val em = result.getField<String>("Email").toString()
+                    val pass = result.getField<String>("Password").toString()
+                    val username = result.getField<String>("Username").toString()
+                    val dID = result.id // database id
+
+                    if (email.text.toString() == em && password.text.toString() == pass) {
+                        Snackbar.make(v, "Welcome $username", Snackbar.LENGTH_SHORT).show()
+                        return@addOnSuccessListener
+                        // INSERT HERE TO NAVIGATE TO MAIN ACTIVITY
+
+                    }
+                }
+                Snackbar.make(v, "Wrong Email or Password", Snackbar.LENGTH_SHORT).show()
+            }
 
     }
 
