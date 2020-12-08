@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "388290151946",
+    "project_id": "ezservice-d5180",
+    "storage_bucket": "ezservice-d5180.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388290151946:android:f43966de4accfc436101f3",
+        "android_client_info": {
+          "package_name": "com.bit.ezservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388290151946-r2cld2kotqblv815qha28ui9t4s2btgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFKi69FozYR1PksmP-cYCbw7EeUXqeYgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388290151946-r2cld2kotqblv815qha28ui9t4s2btgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

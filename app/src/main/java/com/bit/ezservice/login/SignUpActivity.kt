@@ -10,8 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bit.ezservice.R
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.getField
+import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
+
+    private val db = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_signup_activity)
@@ -42,8 +48,41 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         // when valid then register
-        Snackbar.make(v, "Register Complete!", Snackbar.LENGTH_SHORT).show()
+        addToDb(v, username, email, phoneNumber, password)
 
+
+
+    }
+
+    private fun addToDb(v: View, username: TextView, email: TextView, phoneNumber: TextView, password: TextView) {
+        // Check if the email already exist
+        var valid = true
+        db.collection("Account")
+                .get()
+                .addOnSuccessListener {
+                    for (result in it) {
+                        val fEmail = result.getField<String>("Username").toString()
+                        if (fEmail == email.text.toString()) {
+                            valid = false
+                            email.error = "Email already Used"
+                            Snackbar.make(v, "Email already Used", Snackbar.LENGTH_SHORT).show()
+                        }
+                    }
+                    // Add to db if the email is not used
+                    if (valid) {
+                        val data = hashMapOf(
+                                "Username" to username.text.toString(),
+                                "Email" to email.text.toString(),
+                                "Phone Number" to phoneNumber.text.toString(),
+                                "Password" to password.text.toString()
+                        )
+                        db.collection("Account")
+                                .add(data)
+                                .addOnSuccessListener {
+                                    Snackbar.make(v, "Register Complete!", Snackbar.LENGTH_SHORT).show()
+                                }
+                    }
+                }
     }
 
     private fun valid(username: TextView, email: TextView, phoneNumber: TextView, password: TextView): Boolean {
@@ -63,6 +102,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 email.error = null
             } else {
                 email.error = "Email is not Valid"
+                valid = false
             }
         }
 
