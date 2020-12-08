@@ -2,6 +2,7 @@ package com.bit.ezservice.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log.d
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -61,7 +62,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 .get()
                 .addOnSuccessListener {
                     for (result in it) {
-                        val fEmail = result.getField<String>("Username").toString()
+                        val fEmail = result.getField<String>("Email").toString()
                         if (fEmail == email.text.toString()) {
                             valid = false
                             email.error = "Email already Used"
