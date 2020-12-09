@@ -20,6 +20,7 @@ import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -78,45 +79,69 @@ class CreateAdsFragment : Fragment() {
         }
         val dID = (activity as MainActivity).dId
 
-        //upload image
-        val storageRef = storage.reference.child(dID)
-        val uploadImg = storageRef.putFile(imageUri!!)
-        val urlTask = uploadImg.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
+        val data = hashMapOf(
+            "Title" to title.text.toString(),
+            "Description" to description.text.toString(),
+            "Category" to category,
+            "Price" to price.text.toString(),
+            "Location" to loc,
+            "Latitude" to lat,
+            "Longitude" to long
+        )
+        db.collection("Profile").document("Ads").collection(dID)
+            .add(data)
+            .addOnSuccessListener {
+                Snackbar.make(requireView(), "Ads has been Posted", Snackbar.LENGTH_SHORT).show()
+                requireView().findNavController().popBackStack()
+                val documentId = it.id
+
+                //upload image
+                val storageRef = storage.reference.child(documentId)
+                val uploadImg = storageRef.putFile(imageUri!!)
+
+                val urlTask = uploadImg.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
+                    }
+                    storageRef.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        imageUploadURL = task.result.toString()
+                        d("bomoh", "image Upload Success")
+                        val imgData = hashMapOf(
+                            "Photo Link" to imageUploadURL
+                        )
+                        db.collection("Profile").document("Ads").collection(dID).document(documentId)
+                            .set(imgData, SetOptions.merge())
+
+                        val data = hashMapOf(
+                            "Title" to title.text.toString(),
+                            "Description" to description.text.toString(),
+                            "Category" to category,
+                            "Price" to price.text.toString(),
+                            "Location" to loc,
+                            "Latitude" to lat,
+                            "Longitude" to long,
+                            "Photo Link" to imageUploadURL
+                        )
+
+                        db.collection("Ads").document(documentId)
+                            .set(data, SetOptions.merge())
+
+
+                    } else {
+                        d("bomoh", "image Upload Failed")
+                        return@addOnCompleteListener
+                    }
                 }
             }
-            storageRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                imageUploadURL = task.result.toString()
-                d("bomoh", "image Upload Success")
-                val data = hashMapOf(
-                    "Title" to title.text.toString(),
-                    "Description" to description.text.toString(),
-                    "Category" to category,
-                    "Price" to price.text.toString(),
-                    "Photo Link" to imageUploadURL,
-                    "Location" to loc,
-                    "Latitude" to lat,
-                    "Longitude" to long
-                )
-                db.collection("Ads").document(dID).collection(category)
-                    .add(data)
-                    .addOnSuccessListener {
-                        Snackbar.make(requireView(), "Ads has been Posted", Snackbar.LENGTH_SHORT).show()
-                        requireView().findNavController().popBackStack()
-                    }
-                    .addOnFailureListener {
-                        Snackbar.make(requireView(), "Ads Failed", Snackbar.LENGTH_SHORT).show()
-                    }
-
-            } else {
-                d("bomoh", "image Upload Failed")
-                return@addOnCompleteListener
+            .addOnFailureListener {
+                Snackbar.make(requireView(), "Ads Failed", Snackbar.LENGTH_SHORT).show()
             }
-        }
+
+
 
     }
 

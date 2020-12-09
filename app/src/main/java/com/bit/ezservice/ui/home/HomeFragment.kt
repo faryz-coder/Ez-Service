@@ -8,24 +8,35 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bit.ezservice.R
 
 class HomeFragment : Fragment() {
-
-    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        val categoryRecyclerView : RecyclerView = root.findViewById(R.id.categoriesRecyclerView)
+
+        val categories = mutableListOf<Categories>()
+        categories.add(Categories("Hardware and Software"))
+        categories.add(Categories("Cleaning"))
+        categories.add(Categories("Maintenance"))
+        categories.add(Categories("Tutoring"))
+
+        categoryRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@HomeFragment.context)
+            adapter = CategoryAdapter(categories)
+        }
+
+
         return root
     }
 }
+
+

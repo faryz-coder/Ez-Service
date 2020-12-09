@@ -30,6 +30,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.getField
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import java.util.*
 
 class EditProfileFragment : Fragment() {
@@ -78,8 +79,10 @@ class EditProfileFragment : Fragment() {
                 if (it.getField<String>("Location") != null) {
                     location.text = it.getField<String>("Location").toString()
                 }
-                if (it.getField<String>("Photo Link") != null) {
-                    img.setImageURI(it.getField<String>("Photo Link").toString().toUri())
+                if (it.getField<String>("Photo Link") == null) {
+                    img.setImageResource(R.mipmap.user_acc)
+                } else {
+                    Picasso.get().load(it.getField<String>("Photo Link").toString()).into(img)
                 }
             }
 
