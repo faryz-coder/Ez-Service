@@ -32,5 +32,9 @@ class ProfileFragment : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
             findNavController().navigate(R.id.action_nav_profile_to_createAdsFragment)
         }
+
+        view.findViewById<Button>(R.id.buttonEditProfile).setOnClickListener {
+            findNavController().navigate(R.id.action_nav_profile_to_editProfileFragment)
+        }
     }
 }

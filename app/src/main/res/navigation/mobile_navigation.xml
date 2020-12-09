@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_nav_profile_to_createAdsFragment"
             app:destination="@id/createAdsFragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
 
     <fragment
@@ -31,4 +34,9 @@
         android:name="com.bit.ezservice.CreateAdsFragment"
         android:label="@string/createAds"
         tools:layout="@layout/fragment_create_ads" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.bit.ezservice.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>
