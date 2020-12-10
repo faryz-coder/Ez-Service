@@ -63,7 +63,7 @@ class ProfileFragment : Fragment() {
                         val title = result.getField<String>("Title").toString()
                         val photoLink = result.getField<String>("Photo Link").toString()
                         val databaseId = result.id
-                        ads.add(Ads(photoLink, title, databaseId))
+                        ads.add(Ads(photoLink, title, databaseId, "Profile"))
                     }
                     rv()
                 }

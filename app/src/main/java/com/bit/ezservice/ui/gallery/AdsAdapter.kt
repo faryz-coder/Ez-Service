@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bit.ezservice.MainActivity
 import com.bit.ezservice.R
@@ -34,6 +35,9 @@ class AdsAdapter(private val ads: MutableList<Ads>) : RecyclerView.Adapter<AdsAd
         holder.title.text = adv.title
         Picasso.get().load(adv.image).into(holder.img)
         val dID = MainActivity().dId
+
+        holder.del.isVisible = adv.frag == "Profile"
+
         holder.del.setOnClickListener {
             // DELETE INSIDE PROFILE
             holder.db.collection("Profile").document("Ads").collection(dID).document(adv.dataId)
@@ -58,6 +62,8 @@ class AdsAdapter(private val ads: MutableList<Ads>) : RecyclerView.Adapter<AdsAd
             }
 
         }
+
+
     }
 
     override fun getItemCount() = ads.size
