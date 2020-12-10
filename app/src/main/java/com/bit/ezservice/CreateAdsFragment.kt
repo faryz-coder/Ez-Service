@@ -86,7 +86,8 @@ class CreateAdsFragment : Fragment() {
             "Price" to price.text.toString(),
             "Location" to loc,
             "Latitude" to lat,
-            "Longitude" to long
+            "Longitude" to long,
+            "Advertiser" to dID
         )
         db.collection("Profile").document("Ads").collection(dID)
             .add(data)
@@ -124,7 +125,8 @@ class CreateAdsFragment : Fragment() {
                             "Location" to loc,
                             "Latitude" to lat,
                             "Longitude" to long,
-                            "Photo Link" to imageUploadURL
+                            "Photo Link" to imageUploadURL,
+                            "Advertiser" to dID
                         )
 
                         db.collection("Ads").document(documentId)

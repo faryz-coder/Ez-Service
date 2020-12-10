@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bit.ezservice.MainActivity
 import com.bit.ezservice.R
@@ -20,6 +23,7 @@ class AdsAdapter(private val ads: MutableList<Ads>) : RecyclerView.Adapter<AdsAd
         val title : TextView = itemView.findViewById(R.id.adsTitle)
         val img : ImageView = itemView.findViewById(R.id.adsImg)
         val del : ImageView = itemView.findViewById(R.id.adsDelete)
+        val adsLayout : ConstraintLayout = itemView.findViewById(R.id.adsRowLayout)
         val db = Firebase.firestore
         val storage = Firebase.storage
     }
@@ -63,6 +67,11 @@ class AdsAdapter(private val ads: MutableList<Ads>) : RecyclerView.Adapter<AdsAd
 
         }
 
+        holder.adsLayout.setOnClickListener {
+            d("bomoh", "pressed : databaseId: ${adv.dataId}")
+            val bundle = bundleOf("databaseId" to adv.dataId)
+            holder.itemView.findNavController().navigate(R.id.action_nav_home_to_detailFragment, bundle)
+        }
 
     }
 
