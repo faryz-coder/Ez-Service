@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_nav_profile_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
 
     <fragment
@@ -51,5 +54,14 @@
         <argument
             android:name="databaseId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.bit.ezservice.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 </navigation>
