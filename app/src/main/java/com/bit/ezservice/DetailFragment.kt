@@ -45,6 +45,7 @@ class DetailFragment : Fragment() {
         val detailPrice = root.findViewById<TextView>(R.id.detailPrice)
         val databaseID = arguments?.getString("databaseId").toString()
         val dID = (activity as MainActivity).dId
+        val uid = (activity as MainActivity).username
         var statusLike = false
 
         d("bomoh", "databaseId: $databaseID")
@@ -118,10 +119,16 @@ class DetailFragment : Fragment() {
                 .addOnSuccessListener { results ->
                     if (results.exists()) {
                         d("bomoh", "ads already liked")
+                        val adId = results.getField<String>("Advertiser").toString()
                         db.collection("Profile").document("Saved Ads").collection(dID).document(databaseID)
                             .delete()
                             .addOnSuccessListener {
-                                imageLike.setImageResource(R.drawable.not_like)
+                                // DELETE LIKED ADS
+                                db.collection("Profile").document("Liked Ads").collection(adId).document(dID)
+                                    .delete()
+                                    .addOnSuccessListener {
+                                        imageLike.setImageResource(R.drawable.not_like)
+                                    }
                             }
 
                     } else {
@@ -143,7 +150,18 @@ class DetailFragment : Fragment() {
                                 db.collection("Profile").document("Saved Ads").collection(dID).document(databaseID)
                                     .set(data)
                                     .addOnSuccessListener {
-                                        imageLike.setImageResource(R.drawable.like)
+                                        // ADD TO LIKED ADS DB
+                                        val advertiser = document.getField<String>("Advertiser").toString()
+
+                                        val data2 = hashMapOf(
+                                            "Name" to uid,
+                                            "Notify" to false
+                                        )
+                                        db.collection("Profile").document("Liked Ads").collection(advertiser).document(dID)
+                                            .set(data2)
+                                            .addOnSuccessListener {
+                                                imageLike.setImageResource(R.drawable.like)
+                                            }
                                     }
                             }
                     }

@@ -34,11 +34,17 @@ class FavoriteAdapter(private val favorite: MutableList<Ads>) : RecyclerView.Ada
         Picasso.get().load(adv.image).into(holder.favoriteImage)
         val dID = MainActivity().dId
 
+
         holder.favoriteLike.setOnClickListener {
             holder.db.collection("Profile").document("Saved Ads").collection(dID).document(adv.dataId)
                 .delete()
                 .addOnSuccessListener {
                     d("bomoh", "Un-favorite")
+                }
+            holder.db.collection("Profile").document("Liked Ads").collection(adv.dataId).document(dID)
+                .delete()
+                .addOnSuccessListener {
+                    d("bomoh", "Un-favorite: Delete Liked Ads")
                 }
         }
 
