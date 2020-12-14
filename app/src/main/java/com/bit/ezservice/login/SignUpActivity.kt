@@ -1,6 +1,7 @@
 package com.bit.ezservice.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.View
@@ -25,9 +26,19 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
         val buttonSignUp : Button = findViewById(R.id.buttonSignUp)
         val signupLayout : ConstraintLayout = findViewById(R.id.signup_layout)
+        val buttonBack : Button = findViewById(R.id.button_back)
+        val loginNow : TextView = findViewById(R.id.textLoginNow)
 
         buttonSignUp.setOnClickListener(this)
         signupLayout.setOnClickListener(this)
+        buttonBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        loginNow.setOnClickListener {
+            val intent = Intent (this, SignInActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -81,6 +92,10 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                                 .add(data)
                                 .addOnSuccessListener {
                                     Snackbar.make(v, "Register Complete!", Snackbar.LENGTH_SHORT).show()
+                                    val intent = Intent(this, SelectionActivity::class.java)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    startActivity(intent)
+                                    finish()
                                 }
                     }
                 }

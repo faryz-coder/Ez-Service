@@ -35,28 +35,34 @@
         </activity>
 
         <!--        activity for SIGN UP ACTIVITY-->
-<!--        <activity-->
-<!--            android:name=".login.SignUpActivity"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/Theme.EzService.NoActionBar">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <activity
+            android:name=".login.SignUpActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.EzService.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 <!--        activity for SIGN IN ACTIVITY-->
-<!--        <activity-->
-<!--            android:name=".login.SignInActivity"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/Theme.EzService.NoActionBar">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".login.SignInActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.EzService.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+<!--        activity for MAIN ACTIVITY-->
+                <activity
+                    android:name=".MainActivity"
+                    android:label="@string/app_name"
+                    android:theme="@style/Theme.EzService.NoActionBar">
+                    <intent-filter>
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+                </activity>
 
     </application>
 

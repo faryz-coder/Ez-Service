@@ -1,13 +1,16 @@
 package com.bit.ezservice.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bit.ezservice.MainActivity
 import com.bit.ezservice.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.ktx.firestore
@@ -23,9 +26,18 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
         val buttonSignIn : Button = findViewById(R.id.buttonSignIn)
         val signInLayout : ConstraintLayout = findViewById(R.id.signin_layout)
+        val buttonBack : Button = findViewById(R.id.button_back2)
+        val signUpNow : TextView = findViewById(R.id.textSignUp)
 
         buttonSignIn.setOnClickListener(this)
         signInLayout.setOnClickListener(this)
+        buttonBack.setOnClickListener {
+            onBackPressed()
+        }
+        signUpNow.setOnClickListener {
+            val intent = Intent (this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(v: View) {
@@ -60,9 +72,12 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
                     if (email.text.toString() == em && password.text.toString() == pass) {
                         Snackbar.make(v, "Welcome $username", Snackbar.LENGTH_SHORT).show()
-                        return@addOnSuccessListener
+                        /* return@addOnSuccessListener */
                         // INSERT HERE TO NAVIGATE TO MAIN ACTIVITY
-
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra("username", username)
+                        intent.putExtra("dId", dID)
+                        startActivity(intent)
                     }
                 }
                 Snackbar.make(v, "Wrong Email or Password", Snackbar.LENGTH_SHORT).show()

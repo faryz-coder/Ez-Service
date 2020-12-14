@@ -34,8 +34,10 @@ import com.squareup.picasso.Picasso
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    var username = "faryz"
-    var dId = "8F8ofMWH0ZpqwlsBVmLb"
+//    var username = "faryz"
+//    var dId = "8F8ofMWH0ZpqwlsBVmLb"
+    var username = ""
+    var dId = ""
     private val db = Firebase.firestore
 
     private val CHANNEL_ID = "channel_id_ez_service"
@@ -47,6 +49,9 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         centerTitle()
+
+        username = intent.getStringExtra("username").toString()
+        dId = intent.getStringExtra("dId").toString()
 
         createNotificationChannel()
 
