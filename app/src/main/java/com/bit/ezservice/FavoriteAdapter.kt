@@ -41,7 +41,8 @@ class FavoriteAdapter(private val favorite: MutableList<Ads>) : RecyclerView.Ada
                 .addOnSuccessListener {
                     d("bomoh", "Un-favorite")
                 }
-            holder.db.collection("Profile").document("Liked Ads").collection(adv.dataId).document(dID)
+            d("bomoh", "adv.id: ${adv.dataId}, dID: $dID")
+            holder.db.collection("Profile").document("Liked Ads").collection(dID).document(adv.dataId)
                 .delete()
                 .addOnSuccessListener {
                     d("bomoh", "Un-favorite: Delete Liked Ads")

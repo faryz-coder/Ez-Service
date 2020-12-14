@@ -124,7 +124,7 @@ class DetailFragment : Fragment() {
                             .delete()
                             .addOnSuccessListener {
                                 // DELETE LIKED ADS
-                                db.collection("Profile").document("Liked Ads").collection(adId).document(dID)
+                                db.collection("Profile").document("Liked Ads").collection(adId).document(databaseID)
                                     .delete()
                                     .addOnSuccessListener {
                                         imageLike.setImageResource(R.drawable.not_like)
@@ -157,7 +157,7 @@ class DetailFragment : Fragment() {
                                             "Name" to uid,
                                             "Notify" to false
                                         )
-                                        db.collection("Profile").document("Liked Ads").collection(advertiser).document(dID)
+                                        db.collection("Profile").document("Liked Ads").collection(advertiser).document(databaseID)
                                             .set(data2)
                                             .addOnSuccessListener {
                                                 imageLike.setImageResource(R.drawable.like)

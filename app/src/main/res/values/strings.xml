@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EzService</string>
+    <string name="app_name">EZ SERVICE</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -9,7 +9,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_profile">My Profile</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_slideshow">About</string>
     <string name="password">Password</string>
     <string name="phone_number">Phone Number</string>
     <string name="email">Email</string>
@@ -19,7 +19,9 @@
     <string name="already_sign_up">Already sign up?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="createAds">fragmen create ads</string>
+    <string name="createAds">fragment create ads</string>
+    <string name="fragment_favorite">LIKED SERVICE</string>
+    <string name="fragment_edit_profile">EDIT PROFILE</string>
 
     <string-array name="category">
         <item>Category</item>
