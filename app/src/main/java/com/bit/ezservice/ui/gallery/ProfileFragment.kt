@@ -42,7 +42,12 @@ class ProfileFragment : Fragment() {
                 val name = it.getField<String>("Username").toString()
                 val imgUrl = it.getField<String>("Photo Link").toString()
 
-                Picasso.get().load(imgUrl).into(img)
+                if (imgUrl != "null") {
+                    Picasso.get().load(imgUrl).into(img)
+                }else {
+                    img.setImageResource(R.mipmap.user_acc)
+                }
+
                 username.text = name
             }
 
@@ -63,7 +68,7 @@ class ProfileFragment : Fragment() {
                         val title = result.getField<String>("Title").toString()
                         val photoLink = result.getField<String>("Photo Link").toString()
                         val databaseId = result.id
-                        ads.add(Ads(photoLink, title, databaseId, "Profile"))
+                        ads.add(Ads(photoLink, title, databaseId, "Profile", dId))
                     }
                     rv()
                 }

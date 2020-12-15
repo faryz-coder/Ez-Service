@@ -45,7 +45,7 @@ class FavoriteFragment : Fragment() {
                         val dbTitle = result.getField<String>("Title").toString()
                         val dbPhoto = result.getField<String>("Photo Link").toString()
                         val databaseId = result.id
-                        favorite.add(Ads(dbPhoto, dbTitle, databaseId, "Favorite"))
+                        favorite.add(Ads(dbPhoto, dbTitle, databaseId, "Favorite", dID))
                     }
                     rv()
                 }

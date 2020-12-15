@@ -3,10 +3,13 @@ package com.bit.ezservice
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log.d
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -15,16 +18,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.ui.*
+import com.bit.ezservice.login.SelectionActivity
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.getField
@@ -50,14 +52,20 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         centerTitle()
 
-        username = intent.getStringExtra("username").toString()
-        dId = intent.getStringExtra("dId").toString()
+//        username = intent.getStringExtra("username").toString()
+//        dId = intent.getStringExtra("dId").toString()
 
         createNotificationChannel()
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+        val logout = findViewById<TextView>(R.id.logout)
+        logout.setOnClickListener {
+            // LOGOUT
+            val intent = Intent(this, SelectionActivity::class.java)
+            startActivity(intent)
+        }
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -115,10 +123,22 @@ class MainActivity : AppCompatActivity() {
         db.collection("Account").document(dId)
             .get()
             .addOnSuccessListener {
-                Picasso.get().load(it.getField<String>("Photo Link").toString()).into(findViewById<ImageView>(R.id.nav_image))
+                val user_img = it.getField<String>("Photo Link").toString()
+                if (user_img != "null"){
+                    Picasso.get().load(it.getField<String>("Photo Link").toString()).into(findViewById<ImageView>(R.id.nav_image))
+                    d("bomoh", "userImg: not null")
+                } else {
+                    findViewById<ImageView>(R.id.nav_image).setImageResource(R.mipmap.user_acc)
+                }
+
             }
 
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     private fun createNotificationChannel() {
@@ -166,6 +186,7 @@ class MainActivity : AppCompatActivity() {
                 params.width = ViewGroup.LayoutParams.MATCH_PARENT
                 appCompatTextView.layoutParams = params
                 appCompatTextView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                appCompatTextView.setTextColor(Color.BLACK)
             }
         }
     }

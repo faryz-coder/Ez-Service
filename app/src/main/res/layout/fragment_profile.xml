@@ -7,6 +7,7 @@
     tools:context=".ui.gallery.ProfileFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="3dp"
         android:layout_marginTop="5dp"
@@ -80,10 +81,9 @@
         android:id="@+id/buttonEditProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:text="Edit Profile"
         app:layout_constraintBottom_toBottomOf="@+id/textUsername"
-        app:layout_constraintEnd_toStartOf="@+id/imageFav"
+        app:layout_constraintEnd_toEndOf="@+id/myProfileRecyclerView"
         app:layout_constraintTop_toTopOf="@+id/textUsername"
         app:layout_constraintVertical_bias="0.482" />
 
@@ -111,11 +111,11 @@
 
     <ImageView
         android:id="@+id/imageFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
         android:src="@drawable/not_like"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonEditProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="@+id/myProfileRecyclerView"
-        app:layout_constraintTop_toTopOf="@+id/buttonEditProfile" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

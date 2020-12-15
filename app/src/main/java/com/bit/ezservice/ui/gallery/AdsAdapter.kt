@@ -38,12 +38,13 @@ class AdsAdapter(private val ads: MutableList<Ads>) : RecyclerView.Adapter<AdsAd
 
         holder.title.text = adv.title
         Picasso.get().load(adv.image).into(holder.img)
-        val dID = MainActivity().dId
+        val dID = adv.dID
 
         holder.del.isVisible = adv.frag == "Profile"
 
         holder.del.setOnClickListener {
             // DELETE INSIDE PROFILE
+            d("bomoh", "dID:$dID, adv: ${adv.dataId}")
             holder.db.collection("Profile").document("Ads").collection(dID).document(adv.dataId)
                 .delete()
                 .addOnSuccessListener {
@@ -55,6 +56,19 @@ class AdsAdapter(private val ads: MutableList<Ads>) : RecyclerView.Adapter<AdsAd
                 .addOnSuccessListener {
                     d("bomoh", "deleted: Main")
                 }
+
+            // DELETE LIKE
+            holder.db.collection("Profile").document("Liked Ads").collection(dID).document(adv.dataId)
+                    .delete()
+                    .addOnSuccessListener {
+                        d("bomoh", "deleted: LIKE")
+                    }
+            // DELETE SAVED LIKE
+            holder.db.collection("Profile").document("Saved Ads").collection(dID).document(adv.dataId)
+                    .delete()
+                    .addOnSuccessListener {
+                        d("bomoh", "deleted: SAVED")
+                    }
 
             val storageRef = holder.storage.reference
             val fileRef = storageRef.child(adv.dataId)
@@ -70,7 +84,12 @@ class AdsAdapter(private val ads: MutableList<Ads>) : RecyclerView.Adapter<AdsAd
         holder.adsLayout.setOnClickListener {
             d("bomoh", "pressed : databaseId: ${adv.dataId}")
             val bundle = bundleOf("databaseId" to adv.dataId)
-            holder.itemView.findNavController().navigate(R.id.action_nav_home_to_detailFragment, bundle)
+
+            if (adv.frag == "Home") {
+                holder.itemView.findNavController().navigate(R.id.action_nav_home_to_detailFragment, bundle)
+            } else if (adv.frag == "Profile") {
+                holder.itemView.findNavController().navigate(R.id.action_nav_profile_to_detailFragment, bundle)
+            }
         }
 
     }

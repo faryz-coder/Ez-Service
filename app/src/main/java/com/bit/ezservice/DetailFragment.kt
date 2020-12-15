@@ -68,9 +68,13 @@ class DetailFragment : Fragment() {
                 .get()
                 .addOnSuccessListener {
                     advertiserName.text = it.getField<String>("Username")
-                    Picasso.get().load(it.getField<String>("Photo Link").toString()).into(
-                        advertiserImg
-                    )
+                    val photoLink = it.getField<String>("Photo Link").toString()
+                    if (photoLink != "null") {
+                        Picasso.get().load(photoLink).into(
+                                advertiserImg
+                        )
+                    }
+
                     phoneNo = it.getField<String>("Phone Number").toString()
                 }
 

@@ -37,9 +37,13 @@ class HomeFragment : Fragment() {
         val categoryCleaning: ImageView = root.findViewById(R.id.categoryCleaning)
         val categoryMaintenance: ImageView = root.findViewById(R.id.categoryMaintenance)
         val categoryTutoring: ImageView = root.findViewById(R.id.categoryTutoring)
+        val categoryPhotographer: ImageView = root.findViewById(R.id.categoryPhotographer)
+        val categoryElectrical: ImageView = root.findViewById(R.id.categoryElectricalWiring)
+        val categoryAircond: ImageView = root.findViewById(R.id.categoryAircondService)
+        val categoryPlumbing: ImageView = root.findViewById(R.id.categoryPlumbing)
         val homeSearch: TextView = root.findViewById(R.id.homeSearch)
         (activity as MainActivity).supportActionBar!!.title = "EZ SERVICE"
-
+        val dID = (activity as MainActivity).dId
 
         val ads = mutableListOf<Ads>()
 
@@ -51,6 +55,7 @@ class HomeFragment : Fragment() {
         }
 
         fun getData(info: String) {
+
             ads.clear()
             db.collection("Ads")
                     .get()
@@ -62,7 +67,7 @@ class HomeFragment : Fragment() {
                             val cate = result.getField<String>("Category").toString()
 
                             if (cate.contains(info)) {
-                                ads.add(Ads(photoLink, title, databaseId, "Home"))
+                                ads.add(Ads(photoLink, title, databaseId, "Home", dID))
                             }
 
                         }
@@ -77,10 +82,22 @@ class HomeFragment : Fragment() {
             getData("Cleaning")
         }
         categoryMaintenance.setOnClickListener {
-            getData("Maintenance")
+            getData("Home Maintenance")
         }
         categoryTutoring.setOnClickListener {
-            getData("Tutoring")
+            getData("Lesson")
+        }
+        categoryPhotographer.setOnClickListener {
+            getData("Photographer and Videographer")
+        }
+        categoryElectrical.setOnClickListener {
+            getData("Electrical Wiring")
+        }
+        categoryAircond.setOnClickListener {
+            getData("Aircond Service")
+        }
+        categoryPlumbing.setOnClickListener {
+            getData("Plumbing")
         }
 
         homeSearch.addTextChangedListener(object : TextWatcher {
@@ -99,7 +116,7 @@ class HomeFragment : Fragment() {
                             val databaseId = result.id
 
                             if (title.contains(s.toString())) {
-                                ads.add(Ads(photoLink, title, databaseId, "Home"))
+                                ads.add(Ads(photoLink, title, databaseId, "Home", dID))
                             }
 
                         }

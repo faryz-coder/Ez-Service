@@ -5,7 +5,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Logout</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_profile">My Profile</string>
@@ -19,7 +19,7 @@
     <string name="already_sign_up">Already sign up?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="createAds">fragment create ads</string>
+    <string name="createAds">POST ADS</string>
     <string name="fragment_favorite">LIKED SERVICE</string>
     <string name="fragment_edit_profile">EDIT PROFILE</string>
 
@@ -27,7 +27,11 @@
         <item>Category</item>
         <item>Hardware and Software</item>
         <item>Cleaning</item>
-        <item>Maintenance</item>
-        <item>Tutoring</item>
+        <item>Home Maintenance</item>
+        <item>Lesson</item>
+        <item>Photographer and Videographer</item>
+        <item>Electrical Wiring</item>
+        <item>Aircond Service</item>
+        <item>Plumbing</item>
     </string-array>
 </resources>

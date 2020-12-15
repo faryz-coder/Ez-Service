@@ -4,5 +4,6 @@ data class Ads (
     val image : String,
     val title : String,
     val dataId : String,
-    val frag: String
+    val frag: String,
+    val dID: String
         )

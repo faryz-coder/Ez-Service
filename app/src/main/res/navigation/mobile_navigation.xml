@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_nav_profile_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
