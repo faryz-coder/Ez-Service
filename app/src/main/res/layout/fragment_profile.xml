@@ -109,13 +109,4 @@
         app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
         app:layout_constraintTop_toTopOf="@+id/floatingActionButton" />
 
-    <ImageView
-        android:id="@+id/imageFav"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
-        android:src="@drawable/not_like"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="@+id/myProfileRecyclerView"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
