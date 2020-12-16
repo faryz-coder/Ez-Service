@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         centerTitle()
 
-//        username = intent.getStringExtra("username").toString()
-//        dId = intent.getStringExtra("dId").toString()
+        username = intent.getStringExtra("username").toString()
+        dId = intent.getStringExtra("dId").toString()
 
         createNotificationChannel()
 
@@ -100,12 +100,13 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
+
         val docRef = db.collection("Profile").document("Liked Ads").collection(dId)
         docRef.addSnapshotListener { snapshot, error ->
             if (error != null) {
                 return@addSnapshotListener
             }
-            if (snapshot != null) {
+            if (snapshot != null && !snapshot.isEmpty) {
                 checkNotify()
             }
         }

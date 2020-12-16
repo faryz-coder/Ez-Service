@@ -98,9 +98,5 @@ class ProfileFragment : Fragment() {
         view.findViewById<Button>(R.id.buttonEditProfile).setOnClickListener {
             findNavController().navigate(R.id.action_nav_profile_to_editProfileFragment)
         }
-
-        view.findViewById<ImageView>(R.id.imageFav).setOnClickListener {
-            findNavController().navigate(R.id.action_nav_profile_to_favoriteFragment)
-        }
     }
 }
