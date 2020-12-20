@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -55,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         username = intent.getStringExtra("username").toString()
         dId = intent.getStringExtra("dId").toString()
 
+        Toast.makeText(applicationContext, "Welcome $username", Toast.LENGTH_LONG).show()
+
         createNotificationChannel()
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -64,7 +67,9 @@ class MainActivity : AppCompatActivity() {
         logout.setOnClickListener {
             // LOGOUT
             val intent = Intent(this, SelectionActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            finish()
         }
 
         // Passing each menu ID as a set of Ids because each

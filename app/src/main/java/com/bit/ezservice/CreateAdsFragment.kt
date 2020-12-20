@@ -3,6 +3,8 @@ package com.bit.ezservice
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
@@ -228,7 +230,8 @@ class CreateAdsFragment : Fragment() {
                             lat = locations.latitude.toString()
                             long = locations.longitude.toString()
                             d("bomoh", "lat:$lat , lon:$long")
-
+                            Snackbar.make(requireView(), addLine, Snackbar.LENGTH_LONG).show()
+                            view.findViewById<ImageView>(R.id.getLocation).setColorFilter(Color.BLUE)
                         }
 
                     }

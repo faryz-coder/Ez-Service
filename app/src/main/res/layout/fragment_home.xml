@@ -211,7 +211,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                        android:src="@drawable/photographer" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -238,7 +238,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                        android:src="@drawable/electrical" />
 
                     <TextView
                         android:id="@+id/textView17"
@@ -265,7 +265,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                        android:src="@drawable/aircond" />
 
                     <TextView
                         android:id="@+id/textView18"
@@ -292,7 +292,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
+                        android:src="@drawable/plumbing" />
 
                     <TextView
                         android:id="@+id/textView19"

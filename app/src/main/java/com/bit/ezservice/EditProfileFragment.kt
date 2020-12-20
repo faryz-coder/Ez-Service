@@ -203,6 +203,7 @@ class EditProfileFragment : Fragment() {
             d("bomoh", "image uri: $imageUri")
             d("bomoh", "data: $data")
             img?.setImageURI(imageUri)
+            imageUploadURL = imageUri.toString()
         }
     }
 
