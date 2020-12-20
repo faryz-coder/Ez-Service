@@ -32,7 +32,7 @@ class FavoriteAdapter(private val favorite: MutableList<Ads>) : RecyclerView.Ada
         val adv = favorite[position]
         holder.favoriteTitle.text = adv.title
         Picasso.get().load(adv.image).into(holder.favoriteImage)
-        val dID = MainActivity().dId
+        val dID = adv.dID
 
 
         holder.favoriteLike.setOnClickListener {

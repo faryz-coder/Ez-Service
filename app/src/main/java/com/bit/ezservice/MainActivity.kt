@@ -7,6 +7,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log.d
 import android.view.Menu
 import android.view.MenuItem
@@ -28,6 +30,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.ui.*
 import com.bit.ezservice.login.SelectionActivity
+import com.bit.ezservice.ui.home.HomeFragment
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.getField
@@ -65,11 +68,16 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         val logout = findViewById<TextView>(R.id.logout)
         logout.setOnClickListener {
-            // LOGOUT
-            val intent = Intent(this, SelectionActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
+            Handler(Looper.getMainLooper()).postDelayed({
+                // LOGOUT
+                val intent = Intent(this, SelectionActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+
+            }, 1000)
+
+            Snackbar.make(findViewById(android.R.id.content), "Good Bye", Snackbar.LENGTH_LONG).show()
         }
 
         // Passing each menu ID as a set of Ids because each
@@ -78,6 +86,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_profile, R.id.nav_slideshow), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
 
         fun checkNotify() {
             db.collection("Profile").document("Liked Ads").collection(dId)
@@ -196,5 +205,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 }

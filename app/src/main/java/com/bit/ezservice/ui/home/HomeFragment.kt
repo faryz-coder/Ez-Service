@@ -1,13 +1,17 @@
 package com.bit.ezservice.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +46,7 @@ class HomeFragment : Fragment() {
         val categoryAircond: ImageView = root.findViewById(R.id.categoryAircondService)
         val categoryPlumbing: ImageView = root.findViewById(R.id.categoryPlumbing)
         val homeSearch: TextView = root.findViewById(R.id.homeSearch)
+        val homeLay: ConstraintLayout = root.findViewById(R.id.homeLayout)
         (activity as MainActivity).supportActionBar!!.title = "EZ SERVICE"
         val dID = (activity as MainActivity).dId
 
@@ -52,6 +57,10 @@ class HomeFragment : Fragment() {
                 layoutManager = LinearLayoutManager(this@HomeFragment.context)
                 adapter = AdsAdapter(ads)
             }
+        }
+
+        homeLay.setOnClickListener {
+            closeKeyBoard(root)
         }
 
         fun getData(info: String) {
@@ -107,21 +116,24 @@ class HomeFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 ads.clear()
-                db.collection("Ads")
-                    .get()
-                    .addOnSuccessListener {
-                        for (result in it) {
-                            val photoLink = result.getField<String>("Photo Link").toString()
-                            val title = result.getField<String>("Title").toString()
-                            val databaseId = result.id
+                if (!s.isNullOrEmpty()) {
+                    db.collection("Ads")
+                            .get()
+                            .addOnSuccessListener {
+                                for (result in it) {
+                                    val photoLink = result.getField<String>("Photo Link").toString()
+                                    val title = result.getField<String>("Title").toString()
+                                    val databaseId = result.id
 
-                            if (title.contains(s.toString())) {
-                                ads.add(Ads(photoLink, title, databaseId, "Home", dID))
+                                    if (title.contains(s.toString())) {
+                                        ads.add(Ads(photoLink, title, databaseId, "Home", dID))
+                                    }
+
+                                }
+                                selected()
                             }
+                }
 
-                        }
-                        selected()
-                    }
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -133,6 +145,10 @@ class HomeFragment : Fragment() {
 
 
         return root
+    }
+    private fun closeKeyBoard(v : View) {
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
 

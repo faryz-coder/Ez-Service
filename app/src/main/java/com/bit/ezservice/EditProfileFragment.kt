@@ -60,7 +60,7 @@ class EditProfileFragment : Fragment() {
         val editLayout : ConstraintLayout = root.findViewById(R.id.editProfile_layout)
         val buttonSave : Button = root.findViewById(R.id.buttonSave)
         val dID = (activity as MainActivity).dId
-
+        d("bomoh", "imageuploadurl: ${imageUploadURL.isNullOrBlank()}")
         // GET PROFILE INFO AND DISPLAY
         db.collection("Account").document(dID)
             .get()
@@ -108,7 +108,6 @@ class EditProfileFragment : Fragment() {
         fun updateData() {
             val data = hashMapOf(
                 "Username" to name.text.toString(),
-                "Photo Link" to imageUploadURL,
                 "Phone Number" to phoneNo.text.toString(),
                 "Location" to location.text.toString()
             )
@@ -124,7 +123,7 @@ class EditProfileFragment : Fragment() {
                 }
         }
 
-        if (imageUploadURL!= null) {
+        if (!imageUploadURL.isNullOrBlank()) {
             val storageRef = storage.reference.child(dID)
             val uploadImg = storageRef.putFile(imageUri!!)
             val urlTask = uploadImg.continueWithTask { task ->
@@ -138,7 +137,21 @@ class EditProfileFragment : Fragment() {
                 if (task.isSuccessful) {
                     imageUploadURL = task.result.toString()
                     d("bomoh", "image Upload Success")
-                    updateData()
+                    val data = hashMapOf(
+                            "Username" to name.text.toString(),
+                            "Photo Link" to imageUploadURL,
+                            "Phone Number" to phoneNo.text.toString(),
+                            "Location" to location.text.toString()
+                    )
+                    db.collection("Account").document(dID)
+                            .set(data, SetOptions.merge())
+                            .addOnSuccessListener {
+                                Snackbar.make(requireView(), "Profile Updated", Snackbar.LENGTH_SHORT).show()
+                                requireView().findNavController().popBackStack()
+                            }
+                            .addOnFailureListener {
+                                Snackbar.make(requireView(), "Profile Failed to Update", Snackbar.LENGTH_SHORT).show()
+                            }
 
                 } else {
                     d("bomoh", "image Upload Failed")

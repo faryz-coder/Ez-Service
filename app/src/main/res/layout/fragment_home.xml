@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
@@ -70,8 +71,8 @@
         android:id="@+id/horizontalScrollView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/selectedRecyclerView"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -208,10 +209,10 @@
                         android:id="@+id/categoryPhotographer"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
+                        android:src="@drawable/photographer"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/photographer" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -235,10 +236,10 @@
                         android:id="@+id/categoryElectricalWiring"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
+                        android:src="@drawable/electrical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/electrical" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView17"
@@ -262,10 +263,10 @@
                         android:id="@+id/categoryAircondService"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
+                        android:src="@drawable/aircond"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/aircond" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView18"
@@ -289,10 +290,10 @@
                         android:id="@+id/categoryPlumbing"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
+                        android:src="@drawable/plumbing"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/plumbing" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textView19"
